@@ -2,6 +2,7 @@
 import PokemonCard from './components/Card';
 import './App.css';
 import PokedexHeader from './components/Header';
+import CardsContainer from './components/CardsContainer';
 
 const pokemon = {
   name: 'Pikachu',
@@ -14,6 +15,7 @@ function App() {
     <>
       <PokedexHeader onSearch={(query) => console.log(query)} />
       <PokemonCard pokemon={pokemon} />
+      <CardsContainer />
     </>
   );
 }
