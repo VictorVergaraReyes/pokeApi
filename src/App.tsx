@@ -1,12 +1,15 @@
 // import { useState } from 'react';
-import { CardComponent } from './components/Card';
+// import PokemonCard from './components/Card';
 import './App.css';
+
+// const pokemon = {
+//   name: 'Pikachu',
+//   image:
+//     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
+//   types: ['grass'],
+// };
 function App() {
-  return (
-    <>
-      <CardComponent id={1} name={'test'} />
-    </>
-  );
+  return <>{/* <PokemonCard pokemon={pokemon} /> */}</>;
 }
 
 export default App;
