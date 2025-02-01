@@ -5,42 +5,12 @@ import {
   CardMedia,
   Typography,
   Chip,
-  Box,
   styled,
 } from '@mui/material';
 // import { DialogComponent } from './Dialog';
 
 // Definición de tipos
-type PokemonType =
-  | 'fire'
-  | 'water'
-  | 'grass'
-  | 'electric'
-  | 'poison'
-  | 'normal'
-  | 'flying'
-  | 'bug'
-  | 'psychic'
-  | 'ground'
-  | 'rock'
-  | 'fighting'
-  | 'ghost'
-  | 'ice'
-  | 'dragon'
-  | 'dark'
-  | 'steel'
-  | 'fairy';
-
-interface Pokemon {
-  name: string;
-  id: number;
-  image?: string;
-  types?: PokemonType[];
-  hp?: number;
-  attack?: number;
-  defense?: number;
-}
-
+import { Pokemon } from '../utils/models';
 interface PokemonCardProps {
   pokemon?: Pokemon;
 }
@@ -59,57 +29,36 @@ const StyledCard = styled(Card)(({ theme }) => ({
   },
 }));
 
-interface PokemonColors {
-  fire: string;
-  water: string;
-  grass: string;
-  electric: string;
-  poison: string;
-  normal: string;
-  flying: string;
-  bug: string;
-  psychic: string;
-  ground: string;
-  rock: string;
-  fighting: string;
-  ghost: string;
-  ice: string;
-  dragon: string;
-  dark: string;
-  steel: string;
-  fairy: string;
-}
+// const StyledChip = styled(Chip)<{ pokemontype: keyof PokemonColors }>(
+//   ({ theme, pokemontype }) => {
+//     const colors: PokemonColors = {
+//       fire: '#fd7d24',
+//       water: '#4592c4',
+//       grass: '#9bcc50',
+//       electric: '#eed535',
+//       poison: '#b97fc9',
+//       normal: '#a4acaf',
+//       flying: '#3dc7ef',
+//       bug: '#729f3f',
+//       psychic: '#f366b9',
+//       ground: '#ab9842',
+//       rock: '#a38c21',
+//       fighting: '#d56723',
+//       ghost: '#7b62a3',
+//       ice: '#51c4e7',
+//       dragon: '#f16e57',
+//       dark: '#707070',
+//       steel: '#9eb7b8',
+//       fairy: '#fdb9e9',
+//     };
 
-const StyledChip = styled(Chip)<{ pokemontype: keyof PokemonColors }>(
-  ({ theme, pokemontype }) => {
-    const colors: PokemonColors = {
-      fire: '#fd7d24',
-      water: '#4592c4',
-      grass: '#9bcc50',
-      electric: '#eed535',
-      poison: '#b97fc9',
-      normal: '#a4acaf',
-      flying: '#3dc7ef',
-      bug: '#729f3f',
-      psychic: '#f366b9',
-      ground: '#ab9842',
-      rock: '#a38c21',
-      fighting: '#d56723',
-      ghost: '#7b62a3',
-      ice: '#51c4e7',
-      dragon: '#f16e57',
-      dark: '#707070',
-      steel: '#9eb7b8',
-      fairy: '#fdb9e9',
-    };
-
-    return {
-      backgroundColor: colors[pokemontype] || colors.normal,
-      color: theme.palette.common.white,
-      margin: theme.spacing(0.5),
-    };
-  }
-);
+//     return {
+//       backgroundColor: colors[pokemontype] || colors.normal,
+//       color: theme.palette.common.white,
+//       margin: theme.spacing(0.5),
+//     };
+//   }
+// );
 
 const IdChip = styled(Chip)(() => ({
   position: 'sticky',
@@ -129,19 +78,24 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
     defense: 0,
   },
 }) => {
-  // const [openDialog, setOpenDialog] = useState<boolean>(false);
+  // interface DialogState {
+  //   open: boolean;
+  // }
+  // const [openDialog, setOpenDialog] = useState<DialogState>({
+  //   open: false,
+  // });
   const {
     name = '???',
     id = 0,
     image = '',
-    types = [],
-    hp = 0,
-    attack = 0,
-    defense = 0,
+    // types = [],
+    // hp = 0,
+    // attack = 0,
+    // defense = 0,
   } = pokemon;
 
   return (
-    <StyledCard onClick={() => console.log('true')}>
+    <StyledCard onClick={() => console.log(pokemon)}>
       <CardMedia
         component="img"
         height="200"
@@ -223,6 +177,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
       {/* <DialogComponent
         open={openDialog}
         handleClose={() => setOpenDialog(false)}
+        pokemon={pokemon}
       /> */}
     </StyledCard>
   );

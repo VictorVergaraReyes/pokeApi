@@ -4,12 +4,15 @@ import Grid from '@mui/material/Grid2';
 import PokemonCard from './Card';
 import { getPokemonList, getPokemonDetails } from '../utils/fetch';
 import { Button } from '@mui/material';
+import { Pokemon } from '../utils/models';
+
+type PokeList = Pokemon[] | [];
 
 export default function CardsContainer() {
   const itemsPerPage = 12;
   const [currentPage, setCurrentPage] = useState(1);
   const [pokemonList, setPokemonList] = useState([]);
-  const [pokemonsDetailsList, setPokemonsDetailsList] = useState([]);
+  const [pokemonsDetailsList, setPokemonsDetailsList] = useState<PokeList>([]);
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   useEffect(() => {
@@ -30,15 +33,15 @@ export default function CardsContainer() {
   }, [currentPage]);
 
   useEffect(() => {
-    const newList: any = [];
-    const fetchDetails = async (element, index) => {
+    const newList: Pokemon[] = [];
+    const fetchDetails = async (element: Pokemon, index: number) => {
       try {
         const details = await getPokemonDetails(element.name);
-        const pokemonDetails = {
+        const pokemonDetails: Pokemon = {
           id: details.id,
           name: details.name,
           image: details.sprites.other.dream_world.front_default,
-          // types: details.types,
+          types: details.types,
           hp: details.stats[0].base_stat,
           attack: details.stats[1].base_stat,
           defense: details.stats[2].base_stat,
