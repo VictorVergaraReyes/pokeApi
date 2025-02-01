@@ -33,11 +33,12 @@ type PokemonType =
 
 interface Pokemon {
   name: string;
+  id: number;
   image?: string;
-  types: PokemonType[];
-  hp: number;
-  attack: number;
-  defense: number;
+  types?: PokemonType[];
+  hp?: number;
+  attack?: number;
+  defense?: number;
 }
 
 interface PokemonCardProps {
@@ -46,8 +47,9 @@ interface PokemonCardProps {
 
 // Estilos personalizados
 const StyledCard = styled(Card)(({ theme }) => ({
-  width: 280,
-  height: 400,
+  width: '100%',
+  minWidth: '253px',
+  height: '300px',
   display: 'flex',
   flexDirection: 'column',
   transition: 'transform 0.2s, box-shadow 0.2s',
