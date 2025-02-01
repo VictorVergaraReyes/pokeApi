@@ -9,11 +9,6 @@ export default function CardsContainer() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pokemonList, setPokemonList] = useState([]);
   const [pokemonsDetailsList, setPokemonsDetailsList] = useState([]);
-  // const indexOfLastItem = currentPage * itemsPerPage;
-  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  // const currentItems = pokemonList.slice(indexOfFirstItem, indexOfLastItem);
-
-  // Función para cambiar de página
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   useEffect(() => {
@@ -34,37 +29,43 @@ export default function CardsContainer() {
   }, [currentPage]);
 
   useEffect(() => {
-    const fetchDetails = async (element) => {
+    const newList: any = [];
+    const fetchDetails = async (element, index) => {
       try {
         const details = await getPokemonDetails(element.name);
         const pokemonDetails = {
           id: details.id,
           name: details.name,
           image: details.sprites.other.dream_world.front_default,
-          types: details.types,
+          // types: details.types,
           hp: details.stats[0].base_stat,
           attack: details.stats[1].base_stat,
           defense: details.stats[2].base_stat,
         };
-        setPokemonsDetailsList(pokemonsDetailsList.push(pokemonDetails));
+        newList.push(pokemonDetails);
+        if (index === pokemonList.length - 1) {
+          setPokemonsDetailsList(newList);
+          console.log('newList', newList);
+        }
       } catch (error) {
         console.log(error);
       }
     };
-    pokemonList.forEach((element) => {
-      fetchDetails(element);
+    pokemonList.forEach((element, index) => {
+      fetchDetails(element, index);
     });
     console.log('pokemonsDetailsList', pokemonsDetailsList);
-  });
+  }, [pokemonList]);
 
   return (
     <Box sx={{ width: 'auto', px: 2, top: '70px', position: 'relative' }}>
       <Grid container spacing={2}>
-        {pokemonList.map((item) => (
-          <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-            <PokemonCard pokemon={item}></PokemonCard>
-          </Grid>
-        ))}
+        {pokemonsDetailsList.length > 0 &&
+          pokemonsDetailsList.map((item) => (
+            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+              <PokemonCard pokemon={item}></PokemonCard>
+            </Grid>
+          ))}
       </Grid>
       <button
         onClick={() => paginate(currentPage - 1)}

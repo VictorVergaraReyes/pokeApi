@@ -6,7 +6,6 @@ import {
   Typography,
   Chip,
   Box,
-  Grid,
   styled,
 } from '@mui/material';
 
