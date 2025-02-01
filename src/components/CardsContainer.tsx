@@ -5,7 +5,7 @@ import PokemonCard from './Card';
 import { getPokemonList } from '../utils/fetch';
 
 export default function CardsContainer() {
-  const itemsPerPage = 10;
+  const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
   const [pokemonList, setPokemonList] = useState([]);
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -30,7 +30,7 @@ export default function CardsContainer() {
   }, []);
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: 'auto', px: 2, paddingTop: 5 }}>
       <Grid container spacing={2}>
         {currentItems.map((item) => (
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
@@ -44,7 +44,12 @@ export default function CardsContainer() {
       >
         Anterior
       </button>
-      <button onClick={() => paginate(currentPage + 1)}>Siguiente</button>
+      <button
+        disabled={currentPage === 7}
+        onClick={() => paginate(currentPage + 1)}
+      >
+        Siguiente
+      </button>
     </Box>
   );
 }

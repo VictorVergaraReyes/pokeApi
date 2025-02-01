@@ -59,7 +59,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
   },
 }));
 
-type colors = {
+interface PokemonColors {
   fire: string;
   water: string;
   grass: string;
@@ -78,11 +78,11 @@ type colors = {
   dark: string;
   steel: string;
   fairy: string;
-};
+}
 
-const StyledChip = styled(Chip)<{ pokemontype: string }>(
+const StyledChip = styled(Chip)<{ pokemontype: keyof PokemonColors }>(
   ({ theme, pokemontype }) => {
-    const colors: colors = {
+    const colors: PokemonColors = {
       fire: '#fd7d24',
       water: '#4592c4',
       grass: '#9bcc50',

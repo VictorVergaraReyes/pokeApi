@@ -17,7 +17,7 @@ const PokedexHeader: React.FC<{ onSearch: (query: string) => void }> = ({
   onSearch,
 }) => {
   return (
-    <StyledAppBar position="static">
+    <StyledAppBar position="absolute">
       <Toolbar sx={{ width: '100vw' }}>
         {/* Título */}
         <Typography variant="h6" fontWeight="bold">
