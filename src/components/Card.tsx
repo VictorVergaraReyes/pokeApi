@@ -172,7 +172,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
           )}
         </Box>
 
-        <Grid container spacing={1}>
+        {/* <Grid container spacing={1}>
           <Grid item xs={6}>
             <Typography color="text.secondary" variant="body2">
               HP:
@@ -197,7 +197,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
           <Grid item xs={6}>
             <Typography variant="body2">{defense}</Typography>
           </Grid>
-        </Grid>
+        </Grid> */}
       </CardContent>
     </StyledCard>
   );
