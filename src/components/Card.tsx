@@ -1,4 +1,4 @@
-import React from 'react';
+// import { useState } from 'react';
 import {
   Card,
   CardContent,
@@ -6,9 +6,9 @@ import {
   Typography,
   Chip,
   Box,
-  Grid,
   styled,
 } from '@mui/material';
+// import { DialogComponent } from './Dialog';
 
 // Definición de tipos
 type PokemonType =
@@ -111,9 +111,17 @@ const StyledChip = styled(Chip)<{ pokemontype: keyof PokemonColors }>(
   }
 );
 
+const IdChip = styled(Chip)(() => ({
+  position: 'sticky',
+  top: '10px',
+  right: '10px',
+  backgroundColor: '#eed535',
+}));
+
 const PokemonCard: React.FC<PokemonCardProps> = ({
   pokemon = {
     name: '???',
+    id: 0,
     image: '',
     types: [],
     hp: 0,
@@ -121,8 +129,10 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
     defense: 0,
   },
 }) => {
+  // const [openDialog, setOpenDialog] = useState<boolean>(false);
   const {
     name = '???',
+    id = 0,
     image = '',
     types = [],
     hp = 0,
@@ -131,7 +141,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
   } = pokemon;
 
   return (
-    <StyledCard>
+    <StyledCard onClick={() => console.log('true')}>
       <CardMedia
         component="img"
         height="200"
@@ -140,6 +150,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
         sx={{ objectFit: 'contain', p: 2 }}
       />
       <CardContent>
+        <IdChip label={id} size="small" />
         <Typography
           gutterBottom
           variant="h5"
@@ -149,8 +160,17 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
         >
           {name}
         </Typography>
+        {/* <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          align="center"
+          sx={{ textTransform: 'capitalize', position: 'absolute' }}
+        >
+          
+        </Typography> */}
 
-        <Box
+        {/* <Box
           sx={{
             display: 'flex',
             justifyContent: 'center',
@@ -170,9 +190,9 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
           ) : (
             <StyledChip label="Unknown" pokemontype="normal" size="small" />
           )}
-        </Box>
+        </Box> */}
 
-        <Grid container spacing={1}>
+        {/* <Grid container spacing={1}>
           <Grid item xs={6}>
             <Typography color="text.secondary" variant="body2">
               HP:
@@ -197,8 +217,13 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
           <Grid item xs={6}>
             <Typography variant="body2">{defense}</Typography>
           </Grid>
-        </Grid>
+        </Grid> */}
       </CardContent>
+
+      {/* <DialogComponent
+        open={openDialog}
+        handleClose={() => setOpenDialog(false)}
+      /> */}
     </StyledCard>
   );
 };
