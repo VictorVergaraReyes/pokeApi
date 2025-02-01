@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import PokemonCard from './Card';
 import { getPokemonList, getPokemonDetails } from '../utils/fetch';
+import { Button } from '@mui/material';
 
 export default function CardsContainer() {
   const itemsPerPage = 12;
@@ -67,18 +68,33 @@ export default function CardsContainer() {
             </Grid>
           ))}
       </Grid>
-      <button
-        onClick={() => paginate(currentPage - 1)}
-        disabled={currentPage === 1}
+
+      <Box
+        style={{
+          marginTop: '10px',
+          width: '300px',
+          display: 'flex',
+          justifyContent: 'space-evenly',
+        }}
       >
-        Anterior
-      </button>
-      <button
-        disabled={currentPage === 7}
-        onClick={() => paginate(currentPage + 1)}
-      >
-        Siguiente
-      </button>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+          sx={{ paddingRight: 2 }}
+        >
+          Anterior
+        </Button>
+        <Button
+          variant="contained"
+          disabled={currentPage === 7}
+          onClick={() => paginate(currentPage + 1)}
+          sx={{ paddingLeft: 2 }}
+        >
+          Siguiente
+        </Button>
+      </Box>
     </Box>
   );
 }
