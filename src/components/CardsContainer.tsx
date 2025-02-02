@@ -23,7 +23,6 @@ export default function CardsContainer() {
           itemsPerPage
         );
         setPokemonList(list);
-        console.log(list);
       } catch (error) {
         console.log(error);
       }
@@ -49,7 +48,6 @@ export default function CardsContainer() {
         newList.push(pokemonDetails);
         if (index === pokemonList.length - 1) {
           setPokemonsDetailsList(newList);
-          console.log('newList', newList);
         }
       } catch (error) {
         console.log(error);
