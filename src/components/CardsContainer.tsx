@@ -58,7 +58,6 @@ export default function CardsContainer() {
     pokemonList.forEach((element, index) => {
       fetchDetails(element, index);
     });
-    console.log('pokemonsDetailsList', pokemonsDetailsList);
   }, [pokemonList]);
 
   return (

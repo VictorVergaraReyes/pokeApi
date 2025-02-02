@@ -1,4 +1,4 @@
-// import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Card,
   CardContent,
@@ -7,7 +7,7 @@ import {
   Chip,
   styled,
 } from '@mui/material';
-// import { DialogComponent } from './Dialog';
+import { DialogComponent } from './Dialog';
 
 // Definición de tipos
 import { Pokemon } from '../utils/models';
@@ -78,24 +78,19 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
     defense: 0,
   },
 }) => {
-  // interface DialogState {
-  //   open: boolean;
-  // }
-  // const [openDialog, setOpenDialog] = useState<DialogState>({
-  //   open: false,
-  // });
-  const {
-    name = '???',
-    id = 0,
-    image = '',
-    // types = [],
-    // hp = 0,
-    // attack = 0,
-    // defense = 0,
-  } = pokemon;
+  const [openDialog, setOpenDialog] = useState(false);
+  const { name = '???', id = 0, image = '' } = pokemon;
+
+  useEffect(() => {
+    console.log('openDialog', openDialog);
+  }, [openDialog]);
+
+  const handleDialogClose = () => {
+    setOpenDialog(false);
+  };
 
   return (
-    <StyledCard onClick={() => console.log(pokemon)}>
+    <StyledCard onClick={() => setOpenDialog(true)}>
       <CardMedia
         component="img"
         height="200"
@@ -174,11 +169,11 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
         </Grid> */}
       </CardContent>
 
-      {/* <DialogComponent
+      <DialogComponent
         open={openDialog}
-        handleClose={() => setOpenDialog(false)}
+        handleClose={handleDialogClose}
         pokemon={pokemon}
-      /> */}
+      />
     </StyledCard>
   );
 };
