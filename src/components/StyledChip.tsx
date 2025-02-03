@@ -1,7 +1,7 @@
 import { Chip, styled } from '@mui/material';
 import { PokemonColors } from '../utils/models';
 
-export const StyledChip = styled(Chip)<{ pokemontype: keyof PokemonColors }>(
+export const StyledChip = styled(Chip)<{ pokemontype: string }>(
   ({ theme, pokemontype }) => {
     const colors: PokemonColors = {
       fire: '#fd7d24',
@@ -25,7 +25,8 @@ export const StyledChip = styled(Chip)<{ pokemontype: keyof PokemonColors }>(
     };
 
     return {
-      backgroundColor: colors[pokemontype] || colors.normal,
+      backgroundColor:
+        colors[pokemontype as keyof PokemonColors] || colors.normal,
       color: theme.palette.common.white,
       margin: theme.spacing(0.5),
     };

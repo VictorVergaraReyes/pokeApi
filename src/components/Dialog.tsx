@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Pokemon } from '../utils/models';
+import { Pokemon, PokemonTypeProp } from '../utils/models';
 import {
   Card,
   CardContent,
@@ -21,14 +21,16 @@ export const DialogComponent: React.FC<DialogComponentProps> = ({
   handleClose,
   pokemon,
 }) => {
-  const [types, setTypes] = useState([]);
-  function extractTypes(pokemonTypes) {
+  const [types, setTypes] = useState<string[]>([]);
+  function extractTypes(pokemonTypes: PokemonTypeProp[]): string[] {
     return pokemonTypes.map((typeObject) => typeObject.type.name);
   }
 
   useEffect(() => {
-    const extractedTypes = extractTypes(pokemon?.types);
-    setTypes(extractedTypes);
+    if (pokemon?.types) {
+      const extractedTypes = extractTypes(pokemon.types);
+      setTypes(extractedTypes);
+    }
   }, [pokemon]);
 
   return (
