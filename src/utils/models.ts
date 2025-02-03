@@ -47,3 +47,24 @@ type PokemonType =
   | 'dark'
   | 'steel'
   | 'fairy';
+
+export const pokemonTypes = [
+  'fire',
+  'water',
+  'grass',
+  'electric',
+  'poison',
+  'normal',
+  'flying',
+  'bug',
+  'psychic',
+  'ground',
+  'rock',
+  'fighting',
+  'ghost',
+  'ice',
+  'dragon',
+  'dark',
+  'steel',
+  'fairy',
+] as const;
