@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Pokemon } from '../utils/models';
 import {
   Card,
@@ -6,7 +7,9 @@ import {
   Dialog,
   DialogTitle,
   Typography,
+  Box,
 } from '@mui/material';
+import { StyledChip } from './StyledChip';
 interface DialogComponentProps {
   open: boolean;
   handleClose: () => void;
@@ -18,10 +21,19 @@ export const DialogComponent: React.FC<DialogComponentProps> = ({
   handleClose,
   pokemon,
 }) => {
+  const [types, setTypes] = useState([]);
+  function extractTypes(pokemonTypes) {
+    return pokemonTypes.map((typeObject) => typeObject.type.name);
+  }
+
+  useEffect(() => {
+    const extractedTypes = extractTypes(pokemon?.types);
+    setTypes(extractedTypes);
+  }, [pokemon]);
+
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>{pokemon?.name}</DialogTitle>
-
       <Card>
         <CardMedia
           component="img"
@@ -43,6 +55,27 @@ export const DialogComponent: React.FC<DialogComponentProps> = ({
           <Typography variant="body2" color="text.secondary">
             Ataque:{pokemon?.attack}
           </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              mb: 2,
+            }}
+          >
+            {types.length > 0 ? (
+              types.map((type) => (
+                <StyledChip
+                  key={type}
+                  label={type}
+                  pokemontype={type}
+                  size="small"
+                />
+              ))
+            ) : (
+              <StyledChip label="Unknown" pokemontype="normal" size="small" />
+            )}
+          </Box>
         </CardContent>
       </Card>
     </Dialog>

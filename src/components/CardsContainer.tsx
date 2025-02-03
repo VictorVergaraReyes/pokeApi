@@ -5,6 +5,7 @@ import PokemonCard from './Card';
 import { getPokemonList, getPokemonDetails } from '../utils/fetch';
 import { Button } from '@mui/material';
 import { Pokemon } from '../utils/models';
+import Loader from './Loader';
 
 type PokeList = Pokemon[] | [];
 
@@ -13,6 +14,7 @@ export default function CardsContainer() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pokemonList, setPokemonList] = useState([]);
   const [pokemonsDetailsList, setPokemonsDetailsList] = useState<PokeList>([]);
+  const [isOpenLoader, setIsOpenLoader] = useState(false);
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   useEffect(() => {
@@ -23,7 +25,6 @@ export default function CardsContainer() {
           itemsPerPage
         );
         setPokemonList(list);
-        console.log(list);
       } catch (error) {
         console.log(error);
       }
@@ -33,11 +34,12 @@ export default function CardsContainer() {
   }, [currentPage]);
 
   useEffect(() => {
-    const newList: Pokemon[] = [];
-    const fetchDetails = async (element: Pokemon, index: number) => {
+    setIsOpenLoader(true);
+
+    const fetchDetails = async (element: Pokemon) => {
       try {
         const details = await getPokemonDetails(element.name);
-        const pokemonDetails: Pokemon = {
+        return {
           id: details.id,
           name: details.name,
           image: details.sprites.other.dream_world.front_default,
@@ -46,18 +48,31 @@ export default function CardsContainer() {
           attack: details.stats[1].base_stat,
           defense: details.stats[2].base_stat,
         };
-        newList.push(pokemonDetails);
-        if (index === pokemonList.length - 1) {
-          setPokemonsDetailsList(newList);
-          console.log('newList', newList);
-        }
       } catch (error) {
         console.log(error);
+        return null;
       }
     };
-    pokemonList.forEach((element, index) => {
-      fetchDetails(element, index);
-    });
+
+    const fetchAllPokemon = async () => {
+      try {
+        const promises = pokemonList.map((pokemon) => fetchDetails(pokemon));
+        const results = await Promise.all(promises);
+        const validResults = results.filter(
+          (result) => result !== null
+        ) as Pokemon[];
+        setPokemonsDetailsList(validResults);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsOpenLoader(false);
+      }
+    };
+
+    fetchAllPokemon();
+    return () => {
+      setIsOpenLoader(false);
+    };
   }, [pokemonList]);
 
   return (
@@ -70,7 +85,6 @@ export default function CardsContainer() {
             </Grid>
           ))}
       </Grid>
-
       <Box
         style={{
           marginTop: '10px',
@@ -97,6 +111,7 @@ export default function CardsContainer() {
           Siguiente
         </Button>
       </Box>
+      <Loader openLoader={isOpenLoader} />
     </Box>
   );
 }

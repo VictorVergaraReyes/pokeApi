@@ -1,9 +1,8 @@
-import React from 'react';
-import { AppBar, Toolbar, Typography, TextField } from '@mui/material';
-// import SearchIcon from '@mui/icons-material/Search';
+import { AppBar, Toolbar, Typography, TextField, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import { SelectType } from './Filter';
 
-// Estilos personalizados para el AppBar
 const StyledAppBar = styled(AppBar)(() => ({
   backgroundColor: '#ff0000',
   width: '100vw',
@@ -11,6 +10,8 @@ const StyledAppBar = styled(AppBar)(() => ({
   padding: 0,
   position: 'fixed',
   top: 0,
+  display: 'flex',
+  flexDirection: 'row',
 }));
 
 const PokedexHeader: React.FC<{ onSearch: (query: string) => void }> = ({
@@ -23,8 +24,6 @@ const PokedexHeader: React.FC<{ onSearch: (query: string) => void }> = ({
         <Typography variant="h6" fontWeight="bold">
           Pokédex
         </Typography>
-
-        {/* Campo de búsqueda */}
         <TextField
           variant="outlined"
           size="small"
@@ -39,6 +38,10 @@ const PokedexHeader: React.FC<{ onSearch: (query: string) => void }> = ({
           // }}
           sx={{ backgroundColor: 'white', borderRadius: 1, minWidth: 200 }}
         />
+        <SelectType handleChange={() => console.log('select type')} />
+        <Box onClick={() => console.log('apply filter')}>
+          <FilterAltIcon />
+        </Box>
       </Toolbar>
     </StyledAppBar>
   );
