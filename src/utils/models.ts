@@ -2,11 +2,19 @@ export interface Pokemon {
   name: string;
   id: number;
   image?: string;
-  types?: PokemonType[];
+  types?: PokemonTypeProp[];
   hp?: number;
   attack?: number;
   defense?: number;
 }
+
+export type PokemonTypeProp = {
+  slot: number;
+  type: {
+    name: string;
+    url: string;
+  };
+};
 
 export interface PokemonColors {
   fire: string;
@@ -28,7 +36,7 @@ export interface PokemonColors {
   steel: string;
   fairy: string;
 }
-type PokemonType =
+export type PokemonType =
   | 'fire'
   | 'water'
   | 'grass'
